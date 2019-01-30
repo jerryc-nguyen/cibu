@@ -51,7 +51,7 @@ run(){
         exit 1
     fi
 
-    echo "Running command: docker-compose run $3"
+    echo "Running command: docker-compose run ${@:3}"
     ssh $TARGET_HOST -p ${TARGET_PORT:-22} "cd $TARGET_PATH; docker-compose run ${@:3}"
 }
 
