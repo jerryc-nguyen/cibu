@@ -44,6 +44,17 @@ up(){
     ssh $TARGET_HOST -p ${TARGET_PORT:-22} "cd $TARGET_PATH; docker-compose up ${@:3}"
 }
 
+run(){
+    if [[ -z "$3" ]]; then
+        echo "Missing YOUR_COMMAND for run command: docker-compose run YOUR_COMMAND"
+        show_help
+        exit 1
+    fi
+
+    echo "Running command: docker-compose run $3"
+    ssh $TARGET_HOST -p ${TARGET_PORT:-22} "cd $TARGET_PATH; docker-compose run $3"
+}
+
 update(){
     remove $@
     up dummy dummy -d --force-recreate --remove-orphans --no-deps ${@:3}
